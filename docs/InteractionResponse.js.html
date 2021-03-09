@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: SlashCommandOptionType.js</title>
+    <title>JSDoc: Source: InteractionResponse.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: SlashCommandOptionType.js</h1>
+    <h1 class="page-title">Source: InteractionResponse.js</h1>
 
     
 
@@ -26,23 +26,48 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * SlashCommandOptionType
- * @readonly
- * @enum {number}
- */
-const SlashCommandOptionType = {
-    SUB_COMMAND: 1,
-    SUB_COMMAND_GROUP: 2,
-    STRING: 3,
-    INTEGER: 4,
-    BOOLEAN: 5,
-    USER: 6,
-    CHANNEL: 7,
-    ROLE: 8
+            <pre class="prettyprint source linenums"><code>const Interaction = require("./Interaction")
+
+class InteractionReponse {
+    /**
+     * @param {Interaction} interaction
+     * @param {string} [id=@original]
+     */
+    constructor(interaction, id) {
+        /**
+         * @type {Interaction}
+         */
+        this.interaction = interaction
+
+        /**
+         * @type {string}
+         */
+        this.id = id ?? '@original'
+    }
+
+    /**
+     * Edit the interaction response
+     * @param {Object} data 
+     */
+    edit(data) {
+        const client = this.interaction.client
+        const endpoint = `/webhooks/${client.applicationId}/${this.interaction.token}/messages/${this.id}`
+
+        return client.api.patch(endpoint, data)
+    }
+
+    /**
+     * Delete the interaction response
+     */
+    delete() {
+        const client = this.interaction.client
+        const endpoint = `/webhooks/${client.applicationId}/${this.interaction.token}/messages/${this.id}`
+
+        return client.api.delete(endpoint)
+    }
 }
 
-module.exports = SlashCommandOptionType</code></pre>
+module.exports = InteractionReponse</code></pre>
         </article>
     </section>
 

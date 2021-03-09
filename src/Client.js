@@ -1,4 +1,5 @@
 const { default: axios } = require("axios")
+const Interaction = require("./Interaction")
 const MainCommandManager = require("./MainCommandManager")
 
 /**
@@ -13,7 +14,7 @@ class Client {
      */
 
     /**
-     * @param {ClientOptions}
+     * @param {ClientOptions} options
      */
     constructor(options) {
         /**
@@ -40,7 +41,7 @@ class Client {
          * @private
          */
         this.api = axios.create({
-            baseURL: 'https://discord.com/api/v7',
+            baseURL: 'https://discord.com/api/v8',
             headers: {
                 'Authorization': this.authToken
             }
@@ -52,15 +53,43 @@ class Client {
          */
         this.commands = new MainCommandManager(this)
 
-        this.integration.on('interaction-receive', (data) => this._handleInteractionReceive(data))
+        this.integration.on('interaction-receive', (...args) => {
+            this._handleInteractionReceive(...args)
+                .catch(e => {
+                    console.error(e)
+                })
+        })
     }
 
     /**
      * @param {Object} data
+     * @param {Function} [respond]
      * @private
      */
-    _handleInteractionReceive(data) {
+    async _handleInteractionReceive(data, respond) {
+        try {
+            switch (data.type) {
+                case 2:
+                    let command = this.commands.global.cache.get(data.data.name)
 
+                    if (!command || (command.id !== data.data.id)) {
+                        command = this.commands.guild(data.guild_id).cache.get(data.data.name)
+                    }
+
+                    if (!command) {
+                        return console.error('Failed to find command: ' + data.data.name)
+                    }
+
+                    await command.run(new Interaction(this, data, respond))
+
+                    break
+                default:
+                    console.error('Failed to respond to interaction type: ' + data.type)
+                    break
+            }
+        } catch (e) {
+            throw e
+        }
     }
 }
 

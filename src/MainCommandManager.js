@@ -31,12 +31,13 @@ class MainCommandManager {
      * Gets a Guild {@link CommandManager} from {@link MainCommandManager~guilds the cache}
      * Creating one if one doesn't exist
      * @param {string} id - The id of the guild
+     * @returns {CommandManager}
      */
     guild(id) {
         if (this.guilds.has(id)) {
             return this.guilds.get(id)
         } else {
-            const manager = new CommandManager(client, id)
+            const manager = new CommandManager(this.client, id)
             this.guilds.set(id, manager)
             return manager
         }

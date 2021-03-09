@@ -1,8 +1,8 @@
 class SlashCommandOptionChoice {
     /**
      * @typedef {Object} SlashCommandOptionChoiceInfo
-     * @property {string} name
-     * @property {string|number} value
+     * @property {string} name - The name of the choice
+     * @property {string|number} value - The value of the choice
      */
 
     /**
@@ -10,13 +10,17 @@ class SlashCommandOptionChoice {
      */
     constructor(data) {
         /**
+         * The name of the choice
          * @type {string}
          */
         this.name = data.name
 
         /**
+         * The value of the choice
          * @type {value}
          */
         this.value = data.value
     }
 }
+
+module.exports = SlashCommandOptionChoice
