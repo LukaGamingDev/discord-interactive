@@ -2,7 +2,7 @@ const { Client: InteractionsClient, SlashCommand } = require('@discord-interacti
 const { Client } = require('discord.js')
 const EventEmitter = require('events')
 
-const TOKEN = /* No Token Here */                                                                                 'ODA2OTM4MTA0MDgyMDcxNTUy.YBwtrA.TJioLLchBgKitR5Rrg4ueSDRxaQ'
+const TOKEN = process.env.TOKEN
 
 const client = new Client()
 const integration = new EventEmitter()
