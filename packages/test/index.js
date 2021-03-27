@@ -1,4 +1,4 @@
-const { Client: InteractionsClient, SlashCommand } = require('@discord-interactive/core')
+const { Client: InteractionsClient, SlashCommand } = require('discord-interactive-core')
 const { Client } = require('discord.js')
 const EventEmitter = require('events')
 
@@ -14,10 +14,10 @@ const interactionsClient = new InteractionsClient({
 
 const time = (s) => new Promise(r => setTimeout(r, s))
 
-class TestCommand extends SlashCommand {
+class TestCommand2 extends SlashCommand {
     constructor(manager) {
         super(manager, {
-            name: 'test',
+            name: 'test2',
             description: 'Test command'
         })
     }
@@ -56,7 +56,7 @@ class TestCommand extends SlashCommand {
 }
 
 interactionsClient.commands.guild('806936473005064202')
-    .register(TestCommand)
+    .register([TestCommand2])
     .update()
 
 client.on('ready', () => {
