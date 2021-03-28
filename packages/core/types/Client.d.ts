@@ -11,7 +11,7 @@ export default class Client {
     /**
      * @param {ClientOptions} options
      */
-    constructor(options: Client.ClientOptions);
+    constructor(options: ClientOptions);
     /**
      * The ID of the application
      * @type {string}
@@ -24,9 +24,9 @@ export default class Client {
     authToken: string;
     /**
      * An instance of an integration
-     * @type {EventEmitter}
+     * @type {Integration}
      */
-    integration: EventEmitter;
+    integration: Integration;
     /**
      * An Axios instance
      * @type {*}
@@ -44,25 +44,24 @@ export default class Client {
      * @private
      */
     private _handleInteractionReceive;
-};
+}
 
-declare namespace Client {
-    export interface ClientOptions {
-        /**
-         * - The ID of the application
-         */
-        applicationId: string;
-        /**
-         * - The auth token used to authenticate requests
-         */
-        authToken: string;
-        /**
-         * - An instance of an integration
-         */
-        integration: EventEmitter;
-    }
-};
+export interface ClientOptions {
+    /**
+     * - The ID of the application
+     */
+    applicationId: string;
+    /**
+     * - The auth token used to authenticate requests
+     */
+    authToken: string;
+    /**
+     * - An instance of an integration
+     */
+    integration: Integration;
+}
 
 import MainCommandManager from "./MainCommandManager";
-import EventEmitter from "events";
 import { AxiosInstance } from "axios";
+import Integration from "./Integration";
+

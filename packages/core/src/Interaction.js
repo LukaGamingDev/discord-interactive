@@ -84,6 +84,8 @@ class Interaction {
          * @type {Client}
          */
         this.client = client
+
+        client.integration.interactionMiddleware(this)
     }
 
     /**

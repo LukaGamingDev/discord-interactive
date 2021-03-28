@@ -10,7 +10,7 @@ class Client {
      * @typedef {Object} ClientOptions
      * @property {string} applicationId - The ID of the application
      * @property {string} authToken - The auth token used to authenticate requests
-     * @property {EventEmitter} integration - An instance of an integration
+     * @property {Integration} integration - An instance of an integration
      */
 
     /**
@@ -31,7 +31,7 @@ class Client {
 
         /**
          * An instance of an integration
-         * @type {EventEmitter}
+         * @type {Integration}
          */
         this.integration = options.integration
 

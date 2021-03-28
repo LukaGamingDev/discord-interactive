@@ -7,7 +7,7 @@ export default class SlashCommandOptionChoice {
     /**
      * @param {SlashCommandOptionChoiceInfo} data
      */
-    constructor(data: SlashCommandOptionChoice.SlashCommandOptionChoiceInfo);
+    constructor(data: SlashCommandOptionChoiceInfo);
     /**
      * The name of the choice
      * @type {string}
@@ -19,15 +19,14 @@ export default class SlashCommandOptionChoice {
      */
     value: any;
 }
-declare namespace SlashCommandOptionChoice {
-    export interface SlashCommandOptionChoiceInfo {
-        /**
-         * - The name of the choice
-         */
-        name: string;
-        /**
-         * - The value of the choice
-         */
-        value: string | number;
-    };
+
+export interface SlashCommandOptionChoiceInfo {
+    /**
+     * - The name of the choice
+     */
+    name: string;
+    /**
+     * - The value of the choice
+     */
+    value: string | number;
 }

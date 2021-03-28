@@ -11,7 +11,7 @@ export default class SlashCommandOption {
     /**
      * @param {SlashCommandOptionInfo} data
      */
-    constructor(data: SlashCommandOption.SlashCommandOptionInfo);
+    constructor(data: SlashCommandOptionInfo);
     /**
      * The type of this option
      * @type {SlashCommandOptionType}
@@ -43,34 +43,34 @@ export default class SlashCommandOption {
      */
     options: SlashCommandOption[] | null;
 }
-declare namespace SlashCommandOption {
-    export interface SlashCommandOptionInfo {
-        /**
-         * - The type of this option
-         */
-        type: any;
-        /**
-         * - The name of this option
-         */
-        name: string;
-        /**
-         * - The description of this option
-         */
-        description: string;
-        /**
-         * - Whether or not this option is required
-         */
-        required?: boolean;
-        /**
-         * - The choices of the user can pick from
-         */
-        choices?: any[];
-        /**
-         * - The options for subcommands and subcommand groups
-         */
-        options?: SlashCommandOptionInfo[];
-    };
+
+export interface SlashCommandOptionInfo {
+    /**
+     * - The type of this option
+     */
+    type: any;
+    /**
+     * - The name of this option
+     */
+    name: string;
+    /**
+     * - The description of this option
+     */
+    description: string;
+    /**
+     * - Whether or not this option is required
+     */
+    required?: boolean;
+    /**
+     * - The choices of the user can pick from
+     */
+    choices?: SlashCommandOptionChoiceInfo[];
+    /**
+     * - The options for subcommands and subcommand groups
+     */
+    options?: SlashCommandOptionInfo[];
 }
 
-import SlashCommandOptionChoice from "./SlashCommandOptionChoice";
+
+import SlashCommandOptionChoice, { SlashCommandOptionChoiceInfo } from "./SlashCommandOptionChoice";
 import SlashCommandOptionType from "./SlashCommandOptionType";

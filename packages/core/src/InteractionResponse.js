@@ -25,7 +25,8 @@ class InteractionReponse {
 
     /**
      * Edit the interaction response
-     * @param {Object} data 
+     * @param {Object} data
+     * @returns {Promise}
      */
     edit(data) {
         const client = this.interaction.client
@@ -36,6 +37,7 @@ class InteractionReponse {
 
     /**
      * Delete the interaction response
+     * @eturns {Promise}
      */
     delete() {
         if (this.isEphemeral) {

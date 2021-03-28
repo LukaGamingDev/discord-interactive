@@ -18,7 +18,8 @@ export default class Interaction {
      * @param {InteractionInfo} data
      * @param {Function} [respondOverrride]
      */
-    constructor(client: any, data: InteractionInfo, respondOverrride?: Function);
+    constructor(client: any, data: InteractionInfo,
+        respondOverrride?: (data: Record<string, unknown>, type: number) => void);
     /**
      * @type {number}
      */
@@ -98,21 +99,18 @@ export default class Interaction {
      * Shows a loading indicator.
      * @param {boolean} isEphemeral - Whether or not the initial respond should be ephemeral
      */
-    showLoadingIndicator(isEphemeral: boolean): Promise;
-};
+    showLoadingIndicator(isEphemeral: boolean): Promise<void>;
+}
 
-declare namespace Interaction {
-    export interface InteractionInfo {
-        version: number;
-        type: number;
-        token: string;
-        member: any;
-        id: string;
-        guild_id: string;
-        data: any;
-        channel_id: string;
-    };
-};
-
+export interface InteractionInfo {
+    version: number;
+    type: number;
+    token: string;
+    member: Record<string, unknown>;
+    id: string;
+    guild_id: string;
+    data: Record<string, unknown>;
+    channel_id: string;
+}
 
 import InteractionReponse from "./InteractionResponse";

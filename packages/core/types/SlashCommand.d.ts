@@ -1,7 +1,7 @@
 /**
  * Represents a Discord Slash Command
  */
-export default class SlashCommand {
+export default abstract class SlashCommand {
     /**
      * @typedef {Object} SlashCommandInfo
      * @property {string} [id] - The id of the command
@@ -15,7 +15,7 @@ export default class SlashCommand {
      * @param {MainCommandManager} manager
      * @param {SlashCommandInfo} data
      */
-    constructor(manager: CommandManager, data: SlashCommand.SlashCommandInfo);
+    constructor(manager: CommandManager, data: SlashCommandInfo);
     /**
      * The manager this command belongs to
      * @type {MainCommandManager}
@@ -55,10 +55,10 @@ export default class SlashCommand {
     options: SlashCommandOption[];
     /**
      * Update the command
-     * @param {Partial<SlashCommandInfo>} data - The data to update
+     * @param {Partial<SlashCommand.SlashCommandInfo>} data - The data to update
      * @returns {Promise}
      */
-    update(data: Partial<SlashCommandInfo>): Promise<any>;
+    update(data: Partial<SlashCommand.SlashCommandInfo>): Promise<any>;
 }
 declare namespace SlashCommand {
     export interface SlashCommandInfo {

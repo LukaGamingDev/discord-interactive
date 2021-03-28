@@ -67,6 +67,7 @@ class CommandManager {
      */
     async update() {
         const commands = await this.fetch()
+        const deletedMap = new Map(commands)
 
         const created = []
         const tasks = []
@@ -76,6 +77,8 @@ class CommandManager {
         this.registry.forEach(command => {
             const exists = commands.has(command.name)
             if (exists) {
+                deletedMap.delete(command.name)
+
                 const oldCommand = commands.get(command.name)
 
                 const diffResult = diff(getSlashCommandData(oldCommand), getSlashCommandData(command))
@@ -96,6 +99,8 @@ class CommandManager {
             }
         })
 
+        const deleted = Array.from(deletedMap.values())
+
         await Promise.all([
             ...tasks,
             ...created.map(command => {
@@ -109,12 +114,24 @@ class CommandManager {
 
                 return this.client.api.post(endpoint, data)
                     .then(data => debug('POST %o %O', endpoint, data.data))
+                    .then(() => this.cache.set(command.name, command))
+            }),
+            ...deleted.map(command => {
+                const endpoint = this.guild
+                    ? `/applications/${this.client.applicationId}/guilds/${this.guild}/commands/${command.id}`
+                    : `/applications/${this.client.applicationId}/commands/${command.id}`
+
+                debug('DELETE %o', endpoint)
+
+                return this.client.api.delete(endpoint)
+                    .then(data => debug('DELETE %o', endpoint))
+                    .then(() => this.cache.delete(command.name))
             })
         ])
     }
 
     /**
-    * Register a command or an array of commands using SlashCommand isntance(s) and constructor(s)
+    * Register a command or an array of commands using SlashCommand instance(s) and constructor(s)
     * @param {SlashCommand|Function|SlashCommand[]|Function[]} commands
     * @returns {CommandManager}
     */

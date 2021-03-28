@@ -36,13 +36,15 @@ export default class CommandManager {
      * Push registry changes
      * @returns {Promise}
      */
-    update(): Promise<any>;
+    update(): Promise<void>;
     /**
-    * Register a command or an array of commands using SlashCommand isntance(s) and constructor(s)
+    * Register a command or an array of commands using SlashCommand instance(s) and constructor(s)
     * @param {SlashCommand|Function|SlashCommand[]|Function[]} commands
     * @returns {CommandManager}
     */
-    register(commands: SlashCommand | Function | SlashCommand[] | Function[]): CommandManager;
+    register(commands: SlashCommand | SlashCommandConstructor | SlashCommand[] | SlashCommandConstructor[]): CommandManager;
 }
+
+type SlashCommandConstructor = new () => SlashCommand
 
 import SlashCommand from "./SlashCommand";

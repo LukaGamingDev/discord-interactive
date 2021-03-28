@@ -21,11 +21,12 @@ export default class InteractionReponse {
      * Edit the interaction response
      * @param {Object} data
      */
-    edit(data: any): any;
+    edit(data: Record<string, unknown>): Promise<AxiosResponse>;
     /**
      * Delete the interaction response
      */
-    delete(): any;
+    delete(): Promise<AxiosResponse>;
 }
 
+import { AxiosResponse } from 'axios';
 import Interaction from './Interaction'
