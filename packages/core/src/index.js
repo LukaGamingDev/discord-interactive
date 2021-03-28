@@ -5,5 +5,6 @@ module.exports = {
     SlashCommand: require('./SlashCommand'),
     SlashCommandOption: require('./SlashCommandOption'),
     SlashCommandOptionChoice: require('./SlashCommandOptionChoice'),
-    SlashCommandOptionType: require('./SlashCommandOptionType')
+    SlashCommandOptionType: require('./SlashCommandOptionType'),
+    Integration: require('./Integration')
 }
