@@ -1,11 +1,10 @@
-const { Client: InteractionsClient, SlashCommand } = require('discord-interactive-core')
+const { Client: InteractionsClient, SlashCommand, Integration } = require('discord-interactive-core')
 const { Client } = require('discord.js')
-const EventEmitter = require('events')
 
 const TOKEN = process.env.TOKEN
 
 const client = new Client()
-const integration = new EventEmitter()
+const integration = new Integration()
 const interactionsClient = new InteractionsClient({
     applicationId: '806938104082071552',
     authToken: `Bot ${TOKEN}`,
