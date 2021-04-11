@@ -1,3 +1,5 @@
+const SlashCommandOptionChoice = require('./SlashCommandOptionChoice')
+
 class SlashCommandOption {
     /**
      * @typedef {Object} SlashCommandOptionInfo
